@@ -1,0 +1,45 @@
+html {
+  padding: 2% 5%;
+  font-size: 100%;
+  line-height: 1.35;
+  color: #333;
+}
+@media screen and (min-width: 48em) {
+  html {
+    font-size: 112.5%;
+    line-height: 1.45;
+  }
+}
+
+article h1 {
+  font-family: "korolev", sans-serif;
+  font-size: 2rem;
+  color: #f7412d;
+  font-weight: 500;
+  font-style: normal;
+  max-width: 18em;
+}
+article p {
+  font-family: "ff-meta-serif-web-pro", Georgia, serif;
+  max-width: 33em;
+}
+
+/* End of example */
+footer {
+  margin-top: 4em;
+}
+
+footer h1 {
+  font-size: 24px;
+  font-family: "acumin-pro-extra-condensed", sans-serif;
+  margin-bottom: 0;
+}
+
+footer span {
+  color: #f15d64;
+}
+
+footer p {
+  font-size: 16px;
+  font-family: Georgia, serif;
+}
