@@ -1,9 +1,38 @@
 // The SCSS is enabled as the CSS preprocessor
 
+// Fonts
+$font-meta: "ff-meta-serif-web-pro", Georgia, serif;
+$font-korolev: "korolev", sans-serif;
+
 // Variables
 $base-font-size: 112.5; // Gets used as %, converts to 18px
 $line-height: 1.45;
 $base: ($base-font-size / 100); // We'll need this for some calculations
+
+// Modular scale
+$ratio: 1.5; // Perfect Fifth
+
+// pow and ms functions
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number; //Multiply by $number if exponent less than zero
+    }
+  } @else if $exponent < 0 {
+    @for $i from 1 through -$exponent {
+      $value: $value / $number; //Divide by $number if exponent less than zero
+    }
+  }
+
+  @return $value;
+}
+
+@function ms($value, $ms-ratio: $ratio, $ms-base: $base) {
+  $size: pow($ms-ratio, $value) * $ms-base;
+  @return #{$size + "rem"};
+}
 
 // Vertical rhythm mixins
 @mixin line-height($number) {
@@ -20,72 +49,103 @@ $base: ($base-font-size / 100); // We'll need this for some calculations
 
 html {
   font-size: #{$base-font-size + "%"}; // 112.5% = 18 pixels
-  padding-left: 3%;
+  font-family: $font-meta;
+  padding-left: 3%; // Good enough for now
   color: #333;
 }
 
+// Set line-height and margins for all elements
 * {
   @include line-height(1);
   @include margin-bottom(1);
   @include margin-top(0);
 }
 
-// Headings parameters [ h1: line-height: 2 * 30px, margin-top: 2 * 30px, margin-bottom: 1 * 30px ]
+// [ h1: font-size: [x value from scale], line-height: 3 × 26px, margin-top: 2 × 26px, margin-bottom: 1 × 26px ]
 $headings: (
   h1: (
-    2,
     3,
+    3,
+    2,
     1,
   ),
   h2: (
+    1,
     1.5,
     2,
     1,
   ),
   h3: (
-    1.5,
-    2,
-    0.5,
-  ),
-  h4: (
+    0,
+    1,
     1,
     0,
-    0.25,
+  ),
+  h4: (
+    0,
+    1,
+    1,
+    0,
   ),
   h5: (
+    0,
     1,
-    2.5,
-    0.5,
+    1,
+    0,
   ),
   h6: (
+    0,
     1,
-    2.5,
-    0.5,
+    1,
+    0,
   ),
 );
 
-// Set line-heights and margins
+// Set line-heights and margins for headings
 @each $heading, $properties in $headings {
   #{$heading} {
-    @include line-height(nth($properties, 1));
-    @include margin-top(nth($properties, 2));
-    @include margin-bottom(nth($properties, 3));
+    font-size: ms(nth($properties, 1));
+    @include line-height(nth($properties, 2));
+    @include margin-top(nth($properties, 3));
+    @include margin-bottom(nth($properties, 4));
   }
 }
 
+small,
+figcaption {
+  font-size: ms(-1);
+}
+
+.big-quote {
+  font-family: $font-korolev;
+  font-size: ms(1);
+  float: right;
+  max-width: 10em;
+  font-weight: 300;
+  font-style: italic;
+  @include line-height(1.5);
+}
+
 article {
+  max-width: 45em; // Good enough for now
+
   h1 {
-    font-family: "korolev", sans-serif;
-    // font-family: "camingodos-web", sans-serif;
-    font-size: 2rem;
     color: #f7412d;
-    font-weight: 500;
     font-style: normal;
-    max-width: 18em;
+    max-width: 13em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: $font-korolev;
+    font-weight: 500;
   }
 
   p {
-    font-family: "ff-meta-serif-web-pro", Georgia, serif;
     max-width: 33em;
   }
 }
@@ -100,6 +160,25 @@ article {
   background-repeat: repeat;
   background-position: left top;
   background-size: 100% #{($base-font-size / 100 * 16) * $line-height + "px"};
+}
+
+.double-grid {
+  @extend .grid;
+  background-image: linear-gradient(
+      to bottom,
+      hsla(200, 100%, 50%, 0.3) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      hsla(200, 100%, 50%, 0.3) 1px,
+      transparent 1px,
+      transparent #{0.5 * ($base-font-size / 100 * 16) * $line-height + "px"},
+      hsla(200, 100%, 50%, 0.2) #{0.5 * ($base-font-size / 100 * 16) *
+        $line-height + "px"},
+      transparent #{0.5 * ($base-font-size / 100 * 16) * $line-height + 1 + "px"},
+      transparent #{($base-font-size / 100 * 16) * $line-height + "px"}
+    );
 }
 
 /* End of example */
