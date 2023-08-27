@@ -1,12 +1,75 @@
-html {
-  padding: 2% 5%;
-  font-size: 100%;
-  line-height: 1.35;
-  color: #333;
+// The SCSS is enabled as the CSS preprocessor
 
-  @media screen and (min-width: 48em) {
-    font-size: 112.5%;
-    line-height: 1.45;
+// Variables
+$base-font-size: 112.5; // Gets used as %, converts to 18px
+$line-height: 1.45;
+$base: ($base-font-size / 100); // We'll need this for some calculations
+
+// Vertical rhythm mixins
+@mixin line-height($number) {
+  line-height: #{$number * $line-height + "rem"};
+}
+
+@mixin margin-top($number) {
+  margin-top: #{$number * $line-height + "rem"};
+}
+
+@mixin margin-bottom($number) {
+  margin-bottom: #{$number * $line-height + "rem"};
+}
+
+html {
+  font-size: #{$base-font-size + "%"}; // 112.5% = 18 pixels
+  padding-left: 3%;
+  color: #333;
+}
+
+* {
+  @include line-height(1);
+  @include margin-bottom(1);
+  @include margin-top(0);
+}
+
+// Headings parameters [ h1: line-height: 2 * 30px, margin-top: 2 * 30px, margin-bottom: 1 * 30px ]
+$headings: (
+  h1: (
+    2,
+    3,
+    1,
+  ),
+  h2: (
+    1.5,
+    2,
+    1,
+  ),
+  h3: (
+    1.5,
+    2,
+    0.5,
+  ),
+  h4: (
+    1,
+    0,
+    0.25,
+  ),
+  h5: (
+    1,
+    2.5,
+    0.5,
+  ),
+  h6: (
+    1,
+    2.5,
+    0.5,
+  ),
+);
+
+// Set line-heights and margins
+@each $heading, $properties in $headings {
+  #{$heading} {
+    @include line-height(nth($properties, 1));
+    @include margin-top(nth($properties, 2));
+    @include margin-bottom(nth($properties, 3));
   }
 }
 
@@ -25,6 +88,18 @@ article {
     font-family: "ff-meta-serif-web-pro", Georgia, serif;
     max-width: 33em;
   }
+}
+
+// Apply the baseline grid as background
+.grid {
+  background-image: linear-gradient(
+    to bottom,
+    hsla(200, 100%, 50%, 0.3) 1px,
+    transparent 1px
+  );
+  background-repeat: repeat;
+  background-position: left top;
+  background-size: 100% #{($base-font-size / 100 * 16) * $line-height + "px"};
 }
 
 /* End of example */
