@@ -1,8 +1,22 @@
 // The SCSS is enabled as the CSS preprocessor
 
+// Layout variables & mixins
+$column: 6.25%;
+
+@mixin width($number) {
+  width: #{$number * $column};
+}
+
+@mixin offset($number) {
+  margin-left: #{$number * $column};
+}
+
 // Fonts
 $font-meta: "ff-meta-serif-web-pro", Georgia, serif;
 $font-korolev: "korolev", sans-serif;
+
+// Colours
+$red: #f7412d;
 
 // Variables
 $base-font-size: 112.5; // Gets used as %, converts to 18px
@@ -50,7 +64,6 @@ $ratio: 1.5; // Perfect Fifth
 html {
   font-size: #{$base-font-size + "%"}; // 112.5% = 18 pixels
   font-family: $font-meta;
-  padding-left: 3%; // Good enough for now
   color: #333;
 }
 
@@ -61,42 +74,42 @@ html {
   @include margin-top(0);
 }
 
-// [ h1: font-size: [x value from scale], line-height: 3 × 26px, margin-top: 2 × 26px, margin-bottom: 1 × 26px ]
+// [ h1: font-size: [x value from scale], line-height: 2 * 30px, margin-top: 2 * 30px, margin-bottom: 1 * 30px ]
 $headings: (
   h1: (
     3,
     3,
-    2,
+    1,
     1,
   ),
   h2: (
     1,
     1.5,
     2,
-    1,
+    0.5,
   ),
   h3: (
     0,
-    1,
-    1,
-    0,
+    1.5,
+    2,
+    0.5,
   ),
   h4: (
     0,
-    1,
-    1,
+    0,
+    0.25,
     0,
   ),
   h5: (
     0,
-    1,
-    1,
+    2.5,
+    0.5,
     0,
   ),
   h6: (
     0,
-    1,
-    1,
+    2.5,
+    0.5,
     0,
   ),
 );
@@ -109,6 +122,89 @@ $headings: (
     @include margin-top(nth($properties, 3));
     @include margin-bottom(nth($properties, 4));
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-korolev;
+  font-weight: 500;
+}
+
+.main-body {
+  @include width(9);
+  @include offset(2);
+  float: left;
+}
+
+.post-meta {
+  color: #999;
+
+  a {
+    color: #999;
+    text-decoration: underline;
+  }
+}
+
+.sidebar {
+  @include width(3);
+  @include margin-top(2);
+  @include offset(1);
+  float: left;
+
+  h1 {
+    text-transform: uppercase;
+    font-size: ms(0);
+    @include margin-bottom(0);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  a {
+    font-family: $font-korolev;
+    display: block;
+    @include margin-bottom(0);
+  }
+
+  .carbon {
+    max-width: 265px;
+  }
+}
+
+header {
+  @include margin-top(2);
+  @include margin-bottom(1);
+  font-family: $font-korolev;
+}
+
+.main-nav {
+  ul {
+    list-style: none;
+  }
+
+  li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+}
+
+.logo-wrap {
+  text-transform: uppercase;
+  font-size: ms(0);
+  display: inline;
+  float: left;
+  margin-right: 40px;
+}
+
+.logo {
+  max-width: 48px;
+  float: left;
 }
 
 small,
@@ -127,27 +223,57 @@ figcaption {
 }
 
 article {
-  max-width: 45em; // Good enough for now
-
   h1 {
-    color: #f7412d;
     font-style: normal;
     max-width: 13em;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: $font-korolev;
-    font-weight: 500;
+    @include offset(-2);
   }
 
   p {
     max-width: 33em;
   }
+
+  img {
+    max-width: 100%;
+  }
+}
+
+a {
+  color: $red;
+  text-decoration: none;
+
+  &:hover {
+    color: lighten($red, 10%);
+  }
+
+  &:active {
+    color: lighten($red, 20%);
+  }
+}
+
+.twitter-link {
+  font-family: $font-korolev;
+}
+
+/* End of example */
+
+footer {
+  margin-top: 4em;
+}
+
+footer h1 {
+  font-size: 24px;
+  font-family: "acumin-pro-extra-condensed", sans-serif;
+  margin-bottom: 0;
+}
+
+footer span {
+  color: #f15d64;
+}
+
+footer p {
+  font-size: 16px;
+  font-family: Georgia, serif;
 }
 
 // Apply the baseline grid as background
@@ -179,25 +305,4 @@ article {
       transparent #{0.5 * ($base-font-size / 100 * 16) * $line-height + 1 + "px"},
       transparent #{($base-font-size / 100 * 16) * $line-height + "px"}
     );
-}
-
-/* End of example */
-
-footer {
-  margin-top: 4em;
-}
-
-footer h1 {
-  font-size: 24px;
-  font-family: "acumin-pro-extra-condensed", sans-serif;
-  margin-bottom: 0;
-}
-
-footer span {
-  color: #f15d64;
-}
-
-footer p {
-  font-size: 16px;
-  font-family: Georgia, serif;
 }

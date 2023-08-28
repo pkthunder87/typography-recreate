@@ -1,7 +1,6 @@
 html {
   font-size: 112.5%;
   font-family: "ff-meta-serif-web-pro", Georgia, serif;
-  padding-left: 3%;
   color: #333;
 }
 
@@ -14,7 +13,7 @@ html {
 h1 {
   font-size: 3.796875rem;
   line-height: 4.35rem;
-  margin-top: 2.9rem;
+  margin-top: 1.45rem;
   margin-bottom: 1.45rem;
 }
 
@@ -22,35 +21,110 @@ h2 {
   font-size: 1.6875rem;
   line-height: 2.175rem;
   margin-top: 2.9rem;
-  margin-bottom: 1.45rem;
+  margin-bottom: 0.725rem;
 }
 
 h3 {
   font-size: 1.125rem;
-  line-height: 1.45rem;
-  margin-top: 1.45rem;
-  margin-bottom: 0rem;
+  line-height: 2.175rem;
+  margin-top: 2.9rem;
+  margin-bottom: 0.725rem;
 }
 
 h4 {
   font-size: 1.125rem;
-  line-height: 1.45rem;
-  margin-top: 1.45rem;
+  line-height: 0rem;
+  margin-top: 0.3625rem;
   margin-bottom: 0rem;
 }
 
 h5 {
   font-size: 1.125rem;
-  line-height: 1.45rem;
-  margin-top: 1.45rem;
+  line-height: 3.625rem;
+  margin-top: 0.725rem;
   margin-bottom: 0rem;
 }
 
 h6 {
   font-size: 1.125rem;
-  line-height: 1.45rem;
-  margin-top: 1.45rem;
+  line-height: 3.625rem;
+  margin-top: 0.725rem;
   margin-bottom: 0rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "korolev", sans-serif;
+  font-weight: 500;
+}
+
+.main-body {
+  width: 56.25%;
+  margin-left: 12.5%;
+  float: left;
+}
+
+.post-meta {
+  color: #999;
+}
+.post-meta a {
+  color: #999;
+  text-decoration: underline;
+}
+
+.sidebar {
+  width: 18.75%;
+  margin-top: 2.9rem;
+  margin-left: 6.25%;
+  float: left;
+}
+.sidebar h1 {
+  text-transform: uppercase;
+  font-size: 1.125rem;
+  margin-bottom: 0rem;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar a {
+  font-family: "korolev", sans-serif;
+  display: block;
+  margin-bottom: 0rem;
+}
+.sidebar .carbon {
+  max-width: 265px;
+}
+
+header {
+  margin-top: 2.9rem;
+  margin-bottom: 1.45rem;
+  font-family: "korolev", sans-serif;
+}
+
+.main-nav ul {
+  list-style: none;
+}
+.main-nav li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.logo-wrap {
+  text-transform: uppercase;
+  font-size: 1.125rem;
+  display: inline;
+  float: left;
+  margin-right: 40px;
+}
+
+.logo {
+  max-width: 48px;
+  float: left;
 }
 
 small,
@@ -68,36 +142,31 @@ figcaption {
   line-height: 2.175rem;
 }
 
-article {
-  max-width: 45em;
-}
 article h1 {
-  color: #f7412d;
   font-style: normal;
   max-width: 13em;
-}
-article h1,
-article h2,
-article h3,
-article h4,
-article h5,
-article h6 {
-  font-family: "korolev", sans-serif;
-  font-weight: 500;
+  margin-left: -12.5%;
 }
 article p {
   max-width: 33em;
 }
-
-.grid, .double-grid {
-  background-image: linear-gradient(to bottom, hsla(200, 100%, 50%, 0.3) 1px, transparent 1px);
-  background-repeat: repeat;
-  background-position: left top;
-  background-size: 100% 26.1px;
+article img {
+  max-width: 100%;
 }
 
-.double-grid {
-  background-image: linear-gradient(to bottom, hsla(200, 100%, 50%, 0.3) 1px, transparent 1px), linear-gradient(to bottom, hsla(200, 100%, 50%, 0.3) 1px, transparent 1px, transparent 13.05px, hsla(200, 100%, 50%, 0.2) 13.05px, transparent 14.05px, transparent 26.1px);
+a {
+  color: #f7412d;
+  text-decoration: none;
+}
+a:hover {
+  color: #f96d5e;
+}
+a:active {
+  color: #fb9a8f;
+}
+
+.twitter-link {
+  font-family: "korolev", sans-serif;
 }
 
 /* End of example */
@@ -118,4 +187,15 @@ footer span {
 footer p {
   font-size: 16px;
   font-family: Georgia, serif;
+}
+
+.grid, .double-grid {
+  background-image: linear-gradient(to bottom, hsla(200, 100%, 50%, 0.3) 1px, transparent 1px);
+  background-repeat: repeat;
+  background-position: left top;
+  background-size: 100% 26.1px;
+}
+
+.double-grid {
+  background-image: linear-gradient(to bottom, hsla(200, 100%, 50%, 0.3) 1px, transparent 1px), linear-gradient(to bottom, hsla(200, 100%, 50%, 0.3) 1px, transparent 1px, transparent 13.05px, hsla(200, 100%, 50%, 0.2) 13.05px, transparent 14.05px, transparent 26.1px);
 }
