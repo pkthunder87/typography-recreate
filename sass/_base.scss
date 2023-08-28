@@ -1,12 +1,20 @@
 // The SCSS is enabled as the CSS preprocessor
 
-// Layout variables & mixins
-$column: 6.25%;
+// Responsive variables
+$phablet-breakpoint: 37em;
+$tablet-breakpoint: 48em;
+$desktop-breakpoint: 64em;
+$large-desktop-breakpoint: 80em;
 
+// Layout variables & mixins
+$column: 6.25%; // 16 columns = 100% / 16
+
+// Set width in number of columns mixin
 @mixin width($number) {
   width: #{$number * $column};
 }
 
+// Set offset in number of columns mixin
 @mixin offset($number) {
   margin-left: #{$number * $column};
 }
@@ -19,8 +27,10 @@ $font-korolev: "korolev", sans-serif;
 $red: #f7412d;
 
 // Variables
-$base-font-size: 112.5; // Gets used as %, converts to 18px
-$line-height: 1.45;
+$base-font-size: 100; // Gets used as %
+$base-font-size-desktop: 112.5;
+$line-height: 1.4;
+$line-height-desktop: 1.45;
 $base: ($base-font-size / 100); // We'll need this for some calculations
 
 // Modular scale
@@ -51,18 +61,34 @@ $ratio: 1.5; // Perfect Fifth
 // Vertical rhythm mixins
 @mixin line-height($number) {
   line-height: #{$number * $line-height + "rem"};
+
+  @media screen and (min-width: $tablet-breakpoint) {
+    line-height: #{$number * $line-height-desktop + "rem"};
+  }
 }
 
 @mixin margin-top($number) {
   margin-top: #{$number * $line-height + "rem"};
+
+  @media screen and (min-width: $tablet-breakpoint) {
+    margin-top: #{$number * $line-height-desktop + "rem"};
+  }
 }
 
 @mixin margin-bottom($number) {
   margin-bottom: #{$number * $line-height + "rem"};
+
+  @media screen and (min-width: $tablet-breakpoint) {
+    margin-bottom: #{$number * $line-height-desktop + "rem"};
+  }
 }
 
 html {
-  font-size: #{$base-font-size + "%"}; // 112.5% = 18 pixels
+  font-size: #{$base-font-size + "%"}; // = 16 pixels
+
+  @media screen and (min-width: $tablet-breakpoint) {
+    font-size: #{$base-font-size-desktop + "%"}; // 112.5% = 18 pixels
+  }
   font-family: $font-meta;
   color: #333;
 }
@@ -77,8 +103,8 @@ html {
 // [ h1: font-size: [x value from scale], line-height: 2 * 30px, margin-top: 2 * 30px, margin-bottom: 1 * 30px ]
 $headings: (
   h1: (
-    3,
-    3,
+    1,
+    1.5,
     1,
     1,
   ),
@@ -96,20 +122,20 @@ $headings: (
   ),
   h4: (
     0,
-    0,
-    0.25,
+    1,
+    1,
     0,
   ),
   h5: (
     0,
-    2.5,
-    0.5,
+    1,
+    1,
     0,
   ),
   h6: (
     0,
-    2.5,
-    0.5,
+    1,
+    1,
     0,
   ),
 );
@@ -135,9 +161,16 @@ h6 {
 }
 
 .main-body {
-  @include width(9);
-  @include offset(2);
-  float: left;
+  @include width(14); // The main body is 14 columns wide...
+  @include offset(2); // ... and offset by 2 columns on the left
+
+  @media screen and (min-width: $desktop-breakpoint) {
+    @include width(
+      9
+    ); // But only 9 columns wide on desktop to leave room for the sidebar
+    @include offset(2);
+    float: left;
+  }
 }
 
 .post-meta {
@@ -150,14 +183,20 @@ h6 {
 }
 
 .sidebar {
-  @include width(3);
-  @include margin-top(2);
-  @include offset(1);
-  float: left;
+  @include width(13); // The sidebar is almost full-width on mobile
+  @include offset(2);
+
+  @media screen and (min-width: $desktop-breakpoint) {
+    @include width(3); // But only 3 columns wide on desktop
+    @include margin-top(2);
+    @include offset(1);
+    float: left;
+  }
 
   h1 {
     text-transform: uppercase;
     font-size: ms(0);
+    @include margin-top(2);
     @include margin-bottom(0);
   }
 
@@ -181,16 +220,49 @@ header {
   @include margin-top(2);
   @include margin-bottom(1);
   font-family: $font-korolev;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  @media screen and (min-width: $tablet-breakpoint) {
+    margin-bottom: 0;
+  }
+}
+
+.mobile-nav {
+  float: right;
+  margin-right: 10%;
+
+  svg {
+    margin-bottom: 0;
+    margin-right: 10px;
+    fill: $red;
+  }
+
+  @media screen and (min-width: $tablet-breakpoint) {
+    display: none; // Hide the mobile nav on tablet
+  }
 }
 
 .main-nav {
+  display: none; // Hide the main nav by default...
+
+  @media screen and (min-width: $tablet-breakpoint) {
+    display: inline-block; // ... but show it on the tablet
+  }
+
   ul {
     list-style: none;
+    margin-bottom: 0;
   }
 
   li {
     display: inline-block;
     margin-right: 20px;
+    margin-bottom: 0;
   }
 }
 
@@ -200,6 +272,11 @@ header {
   display: inline;
   float: left;
   margin-right: 40px;
+  margin-bottom: 0;
+
+  img {
+    margin-bottom: 0;
+  }
 }
 
 .logo {
@@ -214,23 +291,52 @@ figcaption {
 
 .big-quote {
   font-family: $font-korolev;
-  font-size: ms(1);
-  float: right;
-  max-width: 10em;
+  font-size: ms(0);
+  max-width: 90%;
   font-weight: 300;
   font-style: italic;
-  @include line-height(1.5);
+  margin-left: 0;
+  @include line-height(1);
+
+  @media screen and (min-width: $phablet-breakpoint) {
+    float: right;
+    max-width: 10em;
+    margin-left: 2em;
+    @include margin-bottom(0.5);
+  }
+
+  @media screen and (min-width: $large-desktop-breakpoint) {
+    font-size: ms(1);
+    @include line-height(1.5);
+  }
 }
 
 article {
   h1 {
     font-style: normal;
-    max-width: 13em;
-    @include offset(-2);
+    @include offset(-1); // Make the title stick out of the article body
+    max-width: 100%;
+
+    @media screen and (min-width: $phablet-breakpoint) {
+      font-size: ms(2);
+      @include line-height(2);
+    }
+    @media screen and (min-width: $tablet-breakpoint) {
+      font-size: ms(3);
+      @include line-height(3);
+      max-width: 13em;
+    }
+    @media screen and (min-width: $desktop-breakpoint) {
+      @include offset(-2);
+    }
   }
 
   p {
-    max-width: 33em;
+    max-width: 90%;
+
+    @media screen and (min-width: $tablet-breakpoint) {
+      max-width: 33em;
+    }
   }
 
   img {
@@ -255,6 +361,62 @@ a {
   font-family: $font-korolev;
 }
 
+// Apply the baseline grid as background
+.grid {
+  background-image: linear-gradient(
+    to bottom,
+    hsla(200, 100%, 50%, 0.3) 1px,
+    transparent 1px
+  );
+  background-repeat: repeat;
+  background-position: left top;
+  background-size: 100% #{(100 / 100 * 16) * $line-height + "px"};
+
+  @media screen and (min-width: $tablet-breakpoint) {
+    background-size: 100% #{($base-font-size-desktop / 100 * 16) * $line-height-desktop +
+      "px"};
+  }
+}
+
+.double-grid {
+  @extend .grid;
+  background-image: linear-gradient(
+      to bottom,
+      hsla(200, 100%, 50%, 0.3) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      hsla(200, 100%, 50%, 0.3) 1px,
+      transparent 1px,
+      transparent #{0.5 * (100 / 100 * 16) * $line-height + "px"},
+      hsla(200, 100%, 50%, 0.2) #{0.5 * (100 / 100 * 16) * $line-height + "px"},
+      transparent #{0.5 * (100 / 100 * 16) * $line-height + 1 + "px"},
+      transparent #{(100 / 100 * 16) * $line-height + "px"}
+    );
+
+  @media screen and (min-width: $tablet-breakpoint) {
+    background-image: linear-gradient(
+        to bottom,
+        hsla(200, 100%, 50%, 0.3) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        hsla(200, 100%, 50%, 0.3) 1px,
+        transparent 1px,
+        transparent #{0.5 * ($base-font-size-desktop / 100 * 16) *
+          $line-height-desktop + "px"},
+        hsla(200, 100%, 50%, 0.2) #{0.5 * ($base-font-size-desktop / 100 * 16) *
+          $line-height-desktop + "px"},
+        transparent #{0.5 * ($base-font-size-desktop / 100 * 16) *
+          $line-height-desktop + 1 + "px"},
+        transparent #{($base-font-size-desktop / 100 * 16) * $line-height-desktop +
+          "px"}
+      );
+  }
+}
+
 /* End of example */
 
 footer {
@@ -274,35 +436,4 @@ footer span {
 footer p {
   font-size: 16px;
   font-family: Georgia, serif;
-}
-
-// Apply the baseline grid as background
-.grid {
-  background-image: linear-gradient(
-    to bottom,
-    hsla(200, 100%, 50%, 0.3) 1px,
-    transparent 1px
-  );
-  background-repeat: repeat;
-  background-position: left top;
-  background-size: 100% #{($base-font-size / 100 * 16) * $line-height + "px"};
-}
-
-.double-grid {
-  @extend .grid;
-  background-image: linear-gradient(
-      to bottom,
-      hsla(200, 100%, 50%, 0.3) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      hsla(200, 100%, 50%, 0.3) 1px,
-      transparent 1px,
-      transparent #{0.5 * ($base-font-size / 100 * 16) * $line-height + "px"},
-      hsla(200, 100%, 50%, 0.2) #{0.5 * ($base-font-size / 100 * 16) *
-        $line-height + "px"},
-      transparent #{0.5 * ($base-font-size / 100 * 16) * $line-height + 1 + "px"},
-      transparent #{($base-font-size / 100 * 16) * $line-height + "px"}
-    );
 }
