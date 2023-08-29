@@ -349,6 +349,7 @@ figcaption {
   font-style: italic;
   margin-left: 0;
   line-height: 1.4rem;
+  text-indent: -0.5em;
 }
 @media screen and (min-width: 48em) {
   .big-quote {
