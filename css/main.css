@@ -1,3 +1,20 @@
+.allsmallcaps {
+  -webkit-font-feature-settings: "c2sc", "smcp";
+          font-feature-settings: "c2sc", "smcp";
+}
+
+.fraction {
+  font-variant-numeric: diagonal-fractions;
+  -webkit-font-feature-settings: "frac";
+  font-feature-settings: "frac";
+}
+
+.ordinal {
+  font-variant-numeric: ordinal;
+  -webkit-font-feature-settings: "ordn";
+  font-feature-settings: "ordn";
+}
+
 html {
   font-size: 100%;
   font-family: "ff-meta-serif-web-pro", Georgia, serif;

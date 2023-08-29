@@ -19,6 +19,27 @@ $column: 6.25%; // 16 columns = 100% / 16
   margin-left: #{$number * $column};
 }
 
+// Enable small caps
+.allsmallcaps {
+  font-feature-settings: "c2sc", "smcp";
+}
+
+// Enable fractions
+.fraction {
+  font-variant-numeric: diagonal-fractions;
+  -moz-font-feature-settings: "frac";
+  -webkit-font-feature-settings: "frac";
+  font-feature-settings: "frac";
+}
+
+// Enable ordinals
+.ordinal {
+  font-variant-numeric: ordinal;
+  -moz-font-feature-settings: "ordn";
+  -webkit-font-feature-settings: "ordn";
+  font-feature-settings: "ordn";
+}
+
 // Fonts
 $font-meta: "ff-meta-serif-web-pro", Georgia, serif;
 $font-korolev: "korolev", sans-serif;
