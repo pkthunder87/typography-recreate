@@ -333,6 +333,11 @@ article {
 
   p {
     max-width: 90%;
+    font-variant-ligatures: normal;
+    // font-feature-settings: "liga";
+    // -webkit-font-feature-settings: "liga";
+    // -moz-font-feature-settings: "liga";
+    // text-rendering: optimizeLegibility;
 
     @media screen and (min-width: $tablet-breakpoint) {
       max-width: 33em;
