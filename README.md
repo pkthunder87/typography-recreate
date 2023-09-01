@@ -1,11 +1,10 @@
-# Recreation of Typography for a Better Web
+# Code along of Typography for a Better Web
 
-This is my attempt to recreate Matej Latin's [codepen](https://codepen.io/matejlatin/full/PKoxWo/). I am doing this for my own learning purposes only.
+I am keeping track of my progress for Matej Latin's [codepen](https://codepen.io/matejlatin/full/PKoxWo/). All the code belongs to Matej Latin. I am doing this for my own learning purposes only.
 
 ### Links
 
 - The original version: [codepen](https://codepen.io/matejlatin/full/PKoxWo/)
-- My site version: [Github Pages](https://pkthunder87.github.io/typography-recreate/)
 
 ### Built with
 
